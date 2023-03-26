@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/enterprise_risk/static/css/main.e463a61b.css",
-    "main.js": "/enterprise_risk/static/js/main.50d5de64.js",
+    "main.css": "/enterprise_risk/static/css/main.0a5bfda4.css",
+    "main.js": "/enterprise_risk/static/js/main.214547f4.js",
     "index.html": "/enterprise_risk/index.html",
-    "main.e463a61b.css.map": "/enterprise_risk/static/css/main.e463a61b.css.map",
-    "main.50d5de64.js.map": "/enterprise_risk/static/js/main.50d5de64.js.map"
+    "main.0a5bfda4.css.map": "/enterprise_risk/static/css/main.0a5bfda4.css.map",
+    "main.214547f4.js.map": "/enterprise_risk/static/js/main.214547f4.js.map"
   },
   "entrypoints": [
-    "static/css/main.e463a61b.css",
-    "static/js/main.50d5de64.js"
+    "static/css/main.0a5bfda4.css",
+    "static/js/main.214547f4.js"
   ]
 }
