@@ -5,22 +5,18 @@ import { useLocation } from "react-router";
 import {
   RocketOutlined,
   AimOutlined,
-  UsergroupAddOutlined,
-  AreaChartOutlined,
   RadarChartOutlined,
-  ClusterOutlined,
-  ForkOutlined,
-  SettingOutlined,
-  FileTextOutlined,
+  AreaChartOutlined
 } from "@ant-design/icons";
 import { Header } from "../UI/Header";
 
 const { Content, Sider } = Layout;
 
 const links = [
-  { label: "Overview", to: "/overview", icon: <RadarChartOutlined /> },
   { label: "Create Risk", to: "/createRisk", icon: <AimOutlined /> },
-  { label: "Drones", to: "/drones", icon: <RocketOutlined /> },
+  { label: "Risks Data", to: "/risks", icon: <RadarChartOutlined /> },
+  { label: "Calculated Risk", to: "/calculatedRisk", icon: <AreaChartOutlined /> },
+  { label: "Settings", to: "/settings", icon: <RocketOutlined /> },
 ];
 
 const AppLayout = () => {

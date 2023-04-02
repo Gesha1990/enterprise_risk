@@ -3,20 +3,10 @@
     justify-content: space-around;
 }
 .riskForm{
-    width:70%;
+    width:80%;
     margin:20px auto;
 }
-.riskWrapper{
-display: flex;
-align-items: center;
-justify-content: space-between;
-}
-.field{
-    width: 22%;
-}
-.field:first-child{
-    width:200px
-}
+
 .ant-input-number{
     width: 300px;
     margin-left: 10px;

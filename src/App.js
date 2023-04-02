@@ -6,6 +6,8 @@ import NotReady from "@/UI/NotReady";
 import AuthPage from "./Auth/AuthPage";
 import AppLayout from "./Layout/layout";
 import RiscFormPage from "./RiscFormPage/RiscFormPage";
+import RisksData from './RisksData/RisksData'
+import CalculatedRisk from './CalculatedRisk/CalculatedRisk'
 
 function App() {
   const isLoggedOut = !localStorage.getItem("login");
@@ -18,11 +20,11 @@ function App() {
           <RequireAuth>
             <AppLayout />
           </RequireAuth>
-        }
+        }calculatedRisk
       >
         <Route path="createRisk" element={<RiscFormPage />} />
-        <Route path="audit" element={<NotReady />} />
-        <Route path="custom-links" element={<NotReady />} />
+        <Route path="risks" element={<RisksData />} />
+        <Route path="calculatedRisk" element={<CalculatedRisk />} />
         <Route path="settings" element={<NotReady />} />
         <Route path="*" element={<NotFound />} />
       </Route>

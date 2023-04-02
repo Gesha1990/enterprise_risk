@@ -9,7 +9,6 @@ const { Content } = Layout;
 
 const AuthPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const onFinish = (data) => {
     localStorage.setItem("login", data);
     navigate("/");

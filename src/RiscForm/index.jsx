@@ -1,70 +1,83 @@
 import React, { useState } from "react";
-import { FormInstance, Form, Input, InputNumber, Button } from "antd";
-import { Select, Tooltip } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Form, Input, InputNumber, Button } from "antd";
+import { Select } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
-import { positionList, riskType, generalDirector } from "./const";
+import {
+  typesRisk,
+  innter_area_risk_occurrence,
+  external_area_risk_occurrence,
+} from "./const";
 import "./styles.css";
 
 const { Option } = Select;
+const { TextArea } = Input;
 
-const RiscForm = ({ form, initialValues = {} }) => {
-  const [position, setPosition] = useState("");
-  const navigate = useNavigate();
-
+const RiscForm = () => {
+  const [type, setType] = useState("");
+  const [areaRiskOccurrence, setRiskOccurrence] = useState("");
+  const [form] = Form.useForm();
   const onFinish = (data) => {
-    if (data.position !== generalDirector) {
-      console.log({ ...data, riskType: riskType[data.position] });
-      navigate("/overview");
-    } else {
-      console.log(data);
-      navigate("/overview");
-    }
+          let risks = JSON.parse(localStorage.getItem('risks'));
+            if(risks){
+            localStorage.setItem('risks', JSON.stringify([...risks,data]))
+          }else{
+            localStorage.setItem('risks', JSON.stringify([data]))
+          }
+        
+    form.resetFields()
+    alert('Ризик успішно створено!')
   };
-  const positionFields = {
-    "Генеральний директор": () => {
+  const handleChangeRiskOccurrence = (val) => {
+    setRiskOccurrence(val);
+  };
+  const types = {
+    внутрішній: () => {
       return (
         <Form.Item
-          className="field"
-          name="riskType"
-          label="Тип ризику"
-          rules={[{ required: true, message: "Поле обов'язкове" }]}
+          label="Сфера виникнення ризику"
+          name="area_risk_occurrence"
+          rules={[{ required: true, message: "Поле пасада обов'язкове!" }]}
         >
-          <Input type="text" placeholder="Тип ризику" />
+          <Select
+            onChange={() => {}}
+            suffixIcon={<CaretDownOutlined />}
+            onChange={handleChangeRiskOccurrence}
+          >
+            {innter_area_risk_occurrence.map((optionValue) => (
+              <Option key={optionValue} value={optionValue}>
+                {optionValue}
+              </Option>
+            ))}
+          </Select>
         </Form.Item>
       );
     },
-    "Начальник фінансового відділу": () => {
+    зовнішній: () => {
       return (
-        <Form.Item className="field" name="riskType" label="Тип ризику">
-          Фінансові ризики
-        </Form.Item>
-      );
-    },
-    "Начальник логістичного відділу": () => {
-      return (
-        <Form.Item className="field" name="riskType" label="Тип ризику">
-          Логістичні ризики
-        </Form.Item>
-      );
-    },
-    "Начальник технічного відділу": () => {
-      return (
-        <Form.Item className="field" name="riskType" label="Тип ризику">
-          Технічні ризики
-        </Form.Item>
-      );
-    },
-    "Начальник інформаційного відділу": () => {
-      return (
-        <Form.Item className="field" name="riskType" label="Тип ризику">
-          Інформаційні ризики
-        </Form.Item>
+        <div className="externalWrapper">
+          <Form.Item
+            label="Сфера виникнення ризику"
+            name="area_risk_occurrence"
+            rules={[{ required: true, message: "Поле пасада обов'язкове!" }]}
+          >
+            <Select
+              onChange={() => {}}
+              suffixIcon={<CaretDownOutlined />}
+              onChange={handleChangeRiskOccurrence}
+            >
+              {external_area_risk_occurrence.map((optionValue) => (
+                <Option key={optionValue} value={optionValue}>
+                  {optionValue}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </div>
       );
     },
   };
-  const handleChange = (val) => {
-    setPosition(val);
+  const handleChangeTypes = (val) => {
+    setType(val);
   };
   return (
     <Form
@@ -75,53 +88,49 @@ const RiscForm = ({ form, initialValues = {} }) => {
       className="riskForm"
     >
       <Form.Item
-        label="Посада"
-        name="position"
+        label="Тип ризику"
+        name="typeRisk"
         rules={[{ required: true, message: "Поле пасада обов'язкове!" }]}
       >
         <Select
           onChange={() => {}}
           suffixIcon={<CaretDownOutlined />}
-          onChange={handleChange}
+          onChange={handleChangeTypes}
         >
-          {positionList.map((optionValue) => (
+          {typesRisk.map((optionValue) => (
             <Option key={optionValue} value={optionValue}>
               {optionValue}
             </Option>
           ))}
         </Select>
       </Form.Item>
-      {position && (
-        <div className="riskWrapper">
-          {positionFields[position]()}
-          <Form.Item
-            className="field"
-            name="degreeOfRisk"
-            label="Ступінь ризику (Шкала ризику від 1-10)"
-            rules={[{ required: true, message: "Поле обов'язкове" }]}
-          >
-            <InputNumber min={0} max={10} placeholder="Ступінь ризику" />
-          </Form.Item>
-          <Form.Item
-            className="field"
-            label="Прізвище та ім'я"
-            name="fullName"
-            rules={[{ required: true, message: "Поле обов'язкове" }]}
-          >
-            <Input type="text" placeholder="Прізвище та ім'я" />
-          </Form.Item>
-          <Form.Item
-            className="field"
-            label="Назва проекту"
-            name="projectName"
-            rules={[{ required: true, message: "Поле обов'язкове" }]}
-          >
-            <Input type="text" placeholder="Назва проекту" />
-          </Form.Item>
-        </div>
-      )}
+      {type && types[type]()}
       <Form.Item>
-        <Button type="primary" htmlType="submit" disabled={!position}>
+        {areaRiskOccurrence &&
+        <div>
+            <Form.Item
+              label="Вид ризику"
+              name="kindsRisk"
+              rules={[{ required: true, message: "Поле обов'язкове" }]}
+            >
+              <Input type="text" placeholder="Прізвище та ім'я" />
+            </Form.Item>
+            <Form.Item
+              name="degreeOfRisk"
+              label="Ступінь ризику (Шкала ризику від 0-10)"
+              rules={[{ required: true, message: "Поле обов'язкове" }]}
+            >
+              <InputNumber min={0} max={10} placeholder="Ступінь ризику" />
+            </Form.Item>
+            <Form.Item
+              name="riskManagementTool"
+              label="Інструмент ризик менеджменту"
+              rules={[{ required: true, message: "Поле обов'язкове" }]}
+            >
+              <TextArea rows={4} />
+            </Form.Item>
+          </div>}
+        <Button type="primary" htmlType="submit">
           Sumbit
         </Button>
       </Form.Item>
