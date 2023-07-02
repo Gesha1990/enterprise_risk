@@ -1,0 +1,8 @@
+.ant-table-row:nth-child(2n){
+    background-color: #E8E8E8;
+}
+.titleWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

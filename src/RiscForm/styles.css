@@ -1,0 +1,12 @@
+.riskWrapper{
+    display: flex;
+    justify-content: space-around;
+}
+.riskForm{
+    width:80%;
+    margin:20px auto;
+}
+
+.ant-input-number{
+    width: 300px;
+}
